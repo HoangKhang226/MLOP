@@ -1,102 +1,111 @@
 # 📡 Telco Customer Churn Prediction: A Production-Grade MLOps Ecosystem
 
+[![MLOps CI/CD](https://github.com/HoangKhang226/MLOps/actions/workflows/main.yml/badge.svg)](https://github.com/HoangKhang226/MLOps/actions/workflows/main.yml)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white)](https://mlflow.org/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/hoangkhang226/mlop-churn)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 
-## 🌟 Vision
-Customer churn is one of the most critical challenges in the telecom industry. This project isn't just about training a model; it's about building a **scalable, reproducible, and production-ready MLOps ecosystem**. 
+## 🌟 Project Vision
 
-By transforming raw data into actionable insights through a standardized 6-stage pipeline, we provide a blueprint for turning machine learning research into a living, breathing software product.
+Customer churn is one of the most critical challenges in the telecom industry. This project goes beyond training a simple model; it builds a **scalable, reproducible, and production-ready MLOps ecosystem**.
 
----
-
-## 🚀 Professional Features
-- **🏗️ 6-Stage Modular Pipeline**: Follows the `Cookiecutter` inspired MLOps architecture for clean separation of concerns.
-- **🧬 Advanced Feature Engineering**: Automated data cleaning, SMOTE-based oversampling for imbalanced classes, and generation of complex engagement features.
-- **📈 MLflow Tracking & Registry**: Every experiment is logged. Metrics, parameters, and model versions are stored centrally for full auditability.
-- **⚡ Dual-Service Architecture**: 
-    - **Backend (FastAPI)**: Optimized for speed and low-latency inference.
-    - **Frontend (Streamlit)**: A premium, dark-themed dashboard designed for business users to simulate "What-if" scenarios.
-- **🐳 Cloud-Ready Containerization**: Standardized Docker environment ensuring "it works on my machine" everywhere.
+By transforming raw data into actionable insights through a standardized 6-stage modular pipeline, we provide a blueprint for turning machine learning research into a living, breathing software product.
 
 ---
 
-## 🛠️ Tech Stack & Tools
-| Category | Tools |
-| :--- | :--- |
-| **Language** | Python 3.12 |
-| **Machine Learning** | Scikit-Learn, XGBoost, Imbalanced-Learn (SMOTE) |
-| **MLOps & Tracking** | MLflow |
-| **API Framework** | FastAPI |
-| **Dashboard / UI** | Streamlit |
-| **Containerization** | Docker |
-| **Data Handling** | Pandas, Joblib |
+## 🚀 Key Features (Production-Ready)
+
+- **🏗️ 6-Stage Modular Pipeline**: Clean separation of concerns following the MLOps industry standard: Ingestion, Validation, Transformation, Training, Evaluation, and Deployment.
+- **🔄 End-to-End CI/CD Automation**:
+  - **CI (Continuous Integration)**: Automated code linting (Flake8), formatting (Black), strict data validation, and unit testing on every push.
+  - **CD (Continuous Delivery)**: Automatic Docker image building and pushing to **Docker Hub** upon successful CI completion.
+- **🧬 Robust Data Ingestion**: A resilient ingestion system capable of handling multiple data formats (Zip or raw CSV) ensuring the pipeline never breaks due to source format changes.
+- **⚡ Dual-Service Architecture**:
+  - **Back-end (FastAPI)**: Optimized for high-performance and low-latency real-time inference.
+  - **Front-end (Streamlit)**: A premium interactive dashboard for business users to run "What-if" churn simulations.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+| Category                | Tools                                           |
+| :---------------------- | :---------------------------------------------- |
+| **Language**            | Python 3.12                                     |
+| **Automation (CI/CD)**  | GitHub Actions                                  |
+| **Tracking & Registry** | MLflow                                          |
+| **Containerization**    | Docker, Docker Hub                              |
+| **Web Frameworks**      | FastAPI, Streamlit                              |
+| **Machine Learning**    | Scikit-Learn, XGBoost, Imbalanced-Learn (SMOTE) |
 
 ---
 
 ## 🏗️ The 6-Stage Lifecycle
-> Each stage is a self-contained module located in `src/mlProject/pipeline`.
+
+Each stage is a self-contained module located in `src/mlProject/pipeline`:
 
 1.  **Data Ingestion**: Automated retrieval and extraction of the Telco Churn dataset.
-2.  **Data Validation**: Strict schema enforcement to prevent "training-serving skew".
-3.  **Data Transformation**: Orchestration of one-hot encoding, feature scaling, and class balancing.
-4.  **Model Trainer**: Automated hyperparameter optimization (Grid Search) for Random Forest and XGBoost.
-5.  **Model Evaluation**: Deep dive into accuracy, recall, and ROC-AUC metrics; logs artifacts to MLflow.
-6.  **Prediction Service**: The UI & API bridge that serves the model to the world.
+2.  **Data Validation**: Strict schema enforcement to prevent "Training-Serving Skew".
+3.  **Data Transformation**: Orchestration of one-hot encoding, feature scaling, and SMOTE-based class balancing.
+4.  **Model Trainer**: Automated hyperparameter optimization using GridSearchCV.
+5.  **Model Evaluation**: Deep dive into Accuracy, Recall, and ROC-AUC metrics; logs artifacts to MLflow.
+6.  **Prediction Service**: The UI & API bridge that serves the production model to the world.
 
 ---
 
 ## ⚡ Quick Start
 
 ### 🔌 Local Development
+
 ```bash
-# Clone & Enter
-git clone https://github.com/HoangKhang226/MLOP.git && cd MLOP
+# 1. Clone & Enter
+git clone https://github.com/HoangKhang226/MLOps.git && cd MLOps
 
-# Setup Environment
+# 2. Setup Environment
 python -m venv venv
-source venv/Scripts/activate  # Or venv/bin/activate
+source venv/Scripts/activate  # Or venv\Scripts\activate on Windows
 pip install -r requirements.txt
+pip install -e .
 
-# Run the Magic
+# 3. Run the ML Pipeline
 python main.py
+
+# 4. Launch Services (FastAPI & Streamlit)
+bash start.sh
 ```
 
 ### 🐳 Docker (Instant Deployment)
-One command to run the entire stack:
+
+Run the entire production stack with one command:
+
 ```bash
 docker run -p 8000:8000 -p 8501:8501 hoangkhang226/mlop-churn:latest
 ```
 
 ---
 
-## 📊 Performance Benchmark
-The model is tuned to prioritize **Recall**, ensuring we capture as many potential churners as possible.
-- **Accuracy**: 78%
-- **ROC-AUC**: 0.85 🚀
-- **F1-Score**: Optimized via GridSearchCV
-
----
-
 ## 📂 Project Navigation
+
 ```text
 .
-├── app.py                # FastAPI Service
-├── streamlit_app.py      # Streamlit Interactive UI
-├── main.py               # The Orchestrator
-├── Dockerfile            # The Blueprint
+├── .github/workflows/    # CI/CD Heart (GitHub Actions)
+├── app.py                # FastAPI Backend Service
+├── streamlit_app.py      # Streamlit Frontend Dashboard
+├── main.py               # Central Pipeline Orchestrator
+├── artifacts/            # Intermediate Data & Model Storage
+├── tests/                # Automated Unit Tests
 └── src/mlProject/
-    ├── components/       # Technical Implementation 
-    ├── pipeline/         # Workflow Stages
+    ├── components/       # Technical Logic for Stages
+    ├── pipeline/         # Workflow Definition
     └── config/           # Centralized Configuration
 ```
 
 ---
-## 🤝 Contribution
-Eager to improve this pipeline? Feel free to open a PR or reach out!
 
-**Maintained with passion by [HoangKhang226](https://github.com/HoangKhang226)** 
-*Built during the Antigravity AI Coding Session.*
+## 🤝 Contributing & Security
+
+This project is maintained by **[HoangKhang226](https://github.com/HoangKhang226)**.
+To contribute or fork, ensure you configure `DOCKER_USERNAME` and `DOCKER_PASSWORD` in your repository's GitHub Secrets to enable the automated CI/CD pipeline.
+
+---
+
+_Built with passion for modern MLOps standards._
