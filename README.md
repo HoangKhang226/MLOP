@@ -54,7 +54,7 @@ By transforming raw data into actionable insights through a standardized 6-stage
 ### 🔌 Local Development
 ```bash
 # Clone & Enter
-git clone https://github.com/HoangKhang226/MLOP.git && cd MLOP
+git clone https://github.com/HoangKhang226/MLOP.git
 
 # Setup Environment
 python -m venv venv
