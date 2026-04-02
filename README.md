@@ -1,4 +1,4 @@
-# 📡 Telco Customer Churn Prediction
+# 📡 Telco Customer Churn Prediction: A Production-Grade MLOps Ecosystem
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -54,7 +54,7 @@ By transforming raw data into actionable insights through a standardized 6-stage
 ### 🔌 Local Development
 ```bash
 # Clone & Enter
-git clone https://github.com/HoangKhang226/MLOP.git
+git clone https://github.com/HoangKhang226/MLOP.git && cd MLOP
 
 # Setup Environment
 python -m venv venv
