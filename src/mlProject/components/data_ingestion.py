@@ -33,5 +33,16 @@ class DataIngestion:
         """
         unzip_path = self.config.unzip_dir
         os.makedirs(unzip_path, exist_ok=True)
-        with zipfile.ZipFile(self.config.local_data_file, "r") as zip_ref:
-            zip_ref.extractall(unzip_path)
+        
+        # Check if the downloaded file is a zip file
+        if self.config.local_data_file.endswith(".zip"):
+            with zipfile.ZipFile(self.config.local_data_file, "r") as zip_ref:
+                zip_ref.extractall(unzip_path)
+            logger.info(f"Unzipped {self.config.local_data_file} to {unzip_path}")
+        elif self.config.local_data_file.endswith(".csv"):
+            import shutil
+            # If it's a CSV, we copy it to the expected unzipped location
+            # Note: We name it the same as the expected file in the template
+            dest_path = os.path.join(unzip_path, "WA_Fn-UseC_-Telco-Customer-Churn.csv")
+            shutil.copy(self.config.local_data_file, dest_path)
+            logger.info(f"Copied CSV {self.config.local_data_file} to {dest_path}")
