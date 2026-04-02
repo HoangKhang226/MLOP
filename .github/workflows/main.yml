@@ -1,19 +1,17 @@
-name: MLOps Production-Ready CI
+name: MLOps End-to-End CI/CD
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main" ]
 
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
-    
-    # Thiết lập PYTHONPATH để nhận diện thư mục src/
     env:
       PYTHONPATH: ${{ github.workspace }}
-
+    
     steps:
       - name: 1. Checkout Code
         uses: actions/checkout@v4
@@ -38,17 +36,16 @@ jobs:
       - name: 5. Linting (flake8)
         run: |
           flake8 src --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 src --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      - name: 6. Data Ingestion
+      - name: 6. Pipeline: Ingestion Stage
         run: |
           python src/mlProject/pipeline/stage_01_data_ingestion.py
 
-      - name: 7. Data Validation
+      - name: 7. Pipeline: Validation Stage
         run: |
           python src/mlProject/pipeline/stage_02_data_validation.py
 
-      - name: 8. Data Transformation
+      - name: 8. Pipeline: Transformation Stage
         run: |
           python src/mlProject/pipeline/stage_03_data_transformation.py
 
@@ -56,14 +53,29 @@ jobs:
         run: |
           pytest tests/
 
-      - name: 10. Model Smoke Test
-        run: |
-          python -c "
-          import os
-          try:
-              # Đảm bảo import đúng định dạng src.mlProject
-              from src.mlProject.pipeline.prediction import PredictionPipeline
-              print('>>> Prediction Pipeline module load check: Success')
-          except Exception as e:
-              print(f'>>> Smoke Test Failed: {e}')
-          "
+  continuous-deployment:
+    needs: continuous-integration
+    runs-on: ubuntu-latest
+    # Chỉ chạy CD khi push vào main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: 1. Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 2. Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 3. Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: 4. Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/mlop-churn:latest
