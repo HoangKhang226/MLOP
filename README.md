@@ -1,109 +1,102 @@
-# 📡 Telco Customer Churn Prediction: End-to-End MLOps Pipeline
+# 📡 Telco Customer Churn Prediction: A Production-Grade MLOps Ecosystem
 
-[![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-Serving-009688.svg)](https://fastapi.tiangolo.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B.svg)](https://streamlit.io/)
-[![MLflow](https://img.shields.io/badge/MLflow-Tracking-orange.svg)](https://mlflow.org/)
-[![Docker](https://img.shields.io/badge/Docker-Deployment-2496ED.svg)](https://www.docker.com/)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white)](https://mlflow.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/hoangkhang226/mlop-churn)
 
-## 📝 Overview
-This project delivers a production-ready MLOps system for predicting customer churn in the telecommunications industry. Using the **Telco Customer Churn** dataset, we implement a robust 6-stage pipeline that automates everything from data ingestion to model serving via a modern web interface.
+## 🌟 Vision
+Customer churn is one of the most critical challenges in the telecom industry. This project isn't just about training a model; it's about building a **scalable, reproducible, and production-ready MLOps ecosystem**. 
 
-The solution leverages **Random Forest** and **XGBoost** models, optimized through automated hyperparameter tuning and managed experiments.
-
----
-
-## 🔥 Key Features
-- ✅ **Full MLOps Lifecycle**: Modular architecture following enterprise standards.
-- 🛠️ **Automated Preprocessing**: Intelligent handling of categorical data, missing values, and feature engineering.
-- ⚖️ **Class Balance**: Integration of **SMOTE** to handle imbalanced churn data.
-- 📊 **Metric Tracking**: Centralized logging of parameters and metrics using **MLflow**.
-- 🚀 **Dual Serving Layer**:
-    - **FastAPI**: High-performance REST API for model inference.
-    - **Streamlit**: Intuitive, interactive dashboard for end-users.
-- 🐳 **Containerized**: Fully Dockerized for seamless deployment across environments.
+By transforming raw data into actionable insights through a standardized 6-stage pipeline, we provide a blueprint for turning machine learning research into a living, breathing software product.
 
 ---
 
-## 🏗️ Pipeline Architecture (6 Stages)
-
-1.  **Data Ingestion**: Securely fetches and extracts the raw dataset.
-2.  **Data Validation**: Ensures data integrity against a predefined schema.
-3.  **Data Transformation**: Handles encoding, scaling, and generates derived features like `TotalServices`.
-4.  **Model Trainer**: Hyperparameter optimization using GridSearchCV.
-5.  **Model Evaluation**: Comprehensive metrics analysis and MLflow registration.
-6.  **Serving & UX**: Orchestrates the API and User Interface.
+## 🚀 Professional Features
+- **🏗️ 6-Stage Modular Pipeline**: Follows the `Cookiecutter` inspired MLOps architecture for clean separation of concerns.
+- **🧬 Advanced Feature Engineering**: Automated data cleaning, SMOTE-based oversampling for imbalanced classes, and generation of complex engagement features.
+- **📈 MLflow Tracking & Registry**: Every experiment is logged. Metrics, parameters, and model versions are stored centrally for full auditability.
+- **⚡ Dual-Service Architecture**: 
+    - **Backend (FastAPI)**: Optimized for speed and low-latency inference.
+    - **Frontend (Streamlit)**: A premium, dark-themed dashboard designed for business users to simulate "What-if" scenarios.
+- **🐳 Cloud-Ready Containerization**: Standardized Docker environment ensuring "it works on my machine" everywhere.
 
 ---
 
-## 🛠️ Installation & Setup
+## 🛠️ Tech Stack & Tools
+| Category | Tools |
+| :--- | :--- |
+| **Language** | Python 3.12 |
+| **Machine Learning** | Scikit-Learn, XGBoost, Imbalanced-Learn (SMOTE) |
+| **MLOps & Tracking** | MLflow |
+| **API Framework** | FastAPI |
+| **Dashboard / UI** | Streamlit |
+| **Containerization** | Docker |
+| **Data Handling** | Pandas, Joblib |
 
-### 1. Clone the Repository
+---
+
+## 🏗️ The 6-Stage Lifecycle
+> Each stage is a self-contained module located in `src/mlProject/pipeline`.
+
+1.  **Data Ingestion**: Automated retrieval and extraction of the Telco Churn dataset.
+2.  **Data Validation**: Strict schema enforcement to prevent "training-serving skew".
+3.  **Data Transformation**: Orchestration of one-hot encoding, feature scaling, and class balancing.
+4.  **Model Trainer**: Automated hyperparameter optimization (Grid Search) for Random Forest and XGBoost.
+5.  **Model Evaluation**: Deep dive into accuracy, recall, and ROC-AUC metrics; logs artifacts to MLflow.
+6.  **Prediction Service**: The UI & API bridge that serves the model to the world.
+
+---
+
+## ⚡ Quick Start
+
+### 🔌 Local Development
 ```bash
-git clone https://github.com/HoangKhang226/MLOP.git
-cd MLOP
-```
+# Clone & Enter
+git clone https://github.com/HoangKhang226/MLOP.git && cd MLOP
 
-### 2. Configure Environment
-```bash
+# Setup Environment
 python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux/Mac
+source venv/Scripts/activate  # Or venv/bin/activate
 pip install -r requirements.txt
+
+# Run the Magic
+python main.py
 ```
 
----
-
-## 🚀 How to Run
-
-### Method 1: Local Execution (Recommended for Dev)
-
-1.  **Run Pipeline**: Execute the entire training flow.
-    ```bash
-    python main.py
-    ```
-2.  **Start Backend (API)**:
-    ```bash
-    uvicorn app:app --reload
-    ```
-3.  **Start Frontend (UI)**:
-    ```bash
-    streamlit run streamlit_app.py
-    ```
-
-### Method 2: Dockerize (Production Mode)
+### 🐳 Docker (Instant Deployment)
+One command to run the entire stack:
 ```bash
-# Build the image
-docker build -t churn-app .
-
-# Run the container (Maps API to 8000 and UI to 8501)
-docker run -p 8000:8000 -p 8501:8501 churn-app
+docker run -p 8000:8000 -p 8501:8501 hoangkhang226/mlop-churn:latest
 ```
 
 ---
 
-## 📂 Project Structure
+## 📊 Performance Benchmark
+The model is tuned to prioritize **Recall**, ensuring we capture as many potential churners as possible.
+- **Accuracy**: 78%
+- **ROC-AUC**: 0.85 🚀
+- **F1-Score**: Optimized via GridSearchCV
+
+---
+
+## 📂 Project Navigation
 ```text
 .
-├── app.py                # FastAPI Backend
-├── streamlit_app.py      # Streamlit Frontend
-├── main.py               # Main Pipeline Entry
-├── Dockerfile            # Container configuration
-├── config/               # YAML configuration files
-├── research/             # Experimental Notebooks
+├── app.py                # FastAPI Service
+├── streamlit_app.py      # Streamlit Interactive UI
+├── main.py               # The Orchestrator
+├── Dockerfile            # The Blueprint
 └── src/mlProject/
-    ├── components/       # Core Logic per Stage
-    ├── pipeline/         # Stage Orchestrators
-    └── config/           # Configuration Manager
+    ├── components/       # Technical Implementation 
+    ├── pipeline/         # Workflow Stages
+    └── config/           # Centralized Configuration
 ```
 
 ---
+## 🤝 Contribution
+Eager to improve this pipeline? Feel free to open a PR or reach out!
 
-## 📊 Evaluation Insights
-Model performance is tracked globally. Key metrics achieved:
-- **Accuracy**: ~78%
-- **ROC-AUC**: 0.85
-- **Recall (Churn)**: optimized for early risk detection.
-
----
-*Developed with ❤️ by Antigravity AI assistant.*
+**Maintained with passion by [HoangKhang226](https://github.com/HoangKhang226)** 
+*Built during the Antigravity AI Coding Session.*
